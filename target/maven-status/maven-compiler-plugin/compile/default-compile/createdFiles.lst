@@ -1,8 +1,0 @@
-com\mycompany\eventmanagement\model\User.class
-com\mycompany\eventmanagementticketingsystem\JakartaRestConfiguration.class
-com\mycompany\eventmanagement\dao\UserDAO.class
-com\mycompany\eventmanagement\db\TestConnection.class
-com\mycompany\eventmanagementticketingsystem\resources\JakartaEE10Resource.class
-com\mycompany\eventmanagement\servlet\LoginServlet.class
-com\mycompany\eventmanagement\db\DBConnection.class
-com\mycompany\eventmanagement\servlet\LogoutServlet.class
