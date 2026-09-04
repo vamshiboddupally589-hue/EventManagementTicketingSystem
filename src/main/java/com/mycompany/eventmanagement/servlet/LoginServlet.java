@@ -32,17 +32,22 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
 
             System.out.println("LOGIN SUCCESS");
+            System.out.println("Role = " + user.getRole());
 
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
 
-            response.sendRedirect("dashboard.jsp");
+            if(user.getRole().equalsIgnoreCase("ADMIN")){
+                response.sendRedirect("admin.jsp");
+             }else{
+                response.sendRedirect("dashboard.jsp");
+}
 
         } else {
 
             System.out.println("LOGIN FAILED");
 
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("login.jsp?error=invalid");
         }
     }
 }

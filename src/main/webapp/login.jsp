@@ -27,6 +27,13 @@
             text-align:center;
         }
 
+        .error{
+            color:red;
+            text-align:center;
+            font-weight:bold;
+            margin-bottom:15px;
+        }
+
         input{
 
             width:100%;
@@ -60,6 +67,20 @@
     <div class="login-box">
 
         <h2>User Login</h2>
+
+        <%
+            String error = request.getParameter("error");
+
+            if("invalid".equals(error)){
+        %>
+
+            <div class="error">
+                Invalid Email or Password!
+            </div>
+
+        <%
+            }
+        %>
 
         <form action="LoginServlet" method="post">
 
