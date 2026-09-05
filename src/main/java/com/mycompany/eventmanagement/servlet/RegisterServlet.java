@@ -69,7 +69,7 @@ public class RegisterServlet extends HttpServlet {
             ps.setString(2,email);
             ps.setString(3,password);
             ps.setString(4,phone);
-            ps.setString(5,"USER");
+            ps.setString(5,"CUSTOMER");
 
             ps.executeUpdate();
 
