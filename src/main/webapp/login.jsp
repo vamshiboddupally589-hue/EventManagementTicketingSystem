@@ -2,107 +2,176 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Event Management System - Login</title>
 
-    <style>
+<meta charset="UTF-8">
+<title>Event Management System - Login</title>
 
-        body{
-            font-family: Arial, sans-serif;
-            background:#f2f2f2;
-        }
+<style>
 
-        .login-box{
+body{
+    font-family:Arial,sans-serif;
+    background:#f2f2f2;
+}
 
-            width:350px;
-            margin:100px auto;
-            background:white;
-            padding:25px;
-            border-radius:8px;
-            box-shadow:0px 0px 10px gray;
-        }
+.login-box{
 
-        h2{
-            text-align:center;
-        }
+    width:350px;
+    margin:100px auto;
+    background:white;
+    padding:25px;
+    border-radius:8px;
+    box-shadow:0 0 10px gray;
+}
 
-        .error{
-            color:red;
-            text-align:center;
-            font-weight:bold;
-            margin-bottom:15px;
-        }
+h2{
+    text-align:center;
+}
 
-        input{
+.error{
+    color:red;
+    text-align:center;
+    font-weight:bold;
+    margin-bottom:15px;
+}
 
-            width:100%;
-            padding:10px;
-            margin-top:10px;
-            margin-bottom:15px;
-            box-sizing:border-box;
-        }
+.success{
+    color:green;
+    text-align:center;
+    font-weight:bold;
+    margin-bottom:15px;
+}
 
-        button{
+input{
 
-            width:100%;
-            padding:10px;
-            background:#007bff;
-            color:white;
-            border:none;
-            cursor:pointer;
-        }
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    margin-bottom:15px;
+    box-sizing:border-box;
+}
 
-        button:hover{
+button{
 
-            background:#0056b3;
-        }
+    width:100%;
+    padding:10px;
+    background:#007bff;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
 
-    </style>
+button:hover{
+
+    background:#0056b3;
+}
+
+.links{
+
+    text-align:center;
+    margin-top:15px;
+}
+
+.links a{
+
+    color:#007bff;
+    text-decoration:none;
+}
+
+.links a:hover{
+
+    text-decoration:underline;
+}
+
+</style>
 
 </head>
 
 <body>
 
-    <div class="login-box">
+<div class="login-box">
 
-        <h2>User Login</h2>
+<h2>User Login</h2>
 
-        <%
-            String error = request.getParameter("error");
+<%
+String error = request.getParameter("error");
 
-            if("invalid".equals(error)){
-        %>
+if("invalid".equals(error)){
+%>
 
-            <div class="error">
-                Invalid Email or Password!
-            </div>
+<div class="error">
+Invalid Email or Password!
+</div>
 
-        <%
-            }
-        %>
+<%
+}
 
-        <form action="LoginServlet" method="post">
+String reset = request.getParameter("reset");
 
-            <input
-                type="email"
-                name="email"
-                placeholder="Enter Email"
-                required>
+if("success".equals(reset)){
+%>
 
-            <input
-                type="password"
-                name="password"
-                placeholder="Enter Password"
-                required>
+<div class="success">
+Password Updated Successfully!
+</div>
 
-            <button type="submit">
-                Login
-            </button>
+<%
+}
 
-        </form>
+String register = request.getParameter("register");
 
-    </div>
+if("success".equals(register)){
+%>
+
+<div class="success">
+Registration Successful! Please Login.
+</div>
+
+<%
+}
+%>
+
+<form action="LoginServlet" method="post">
+
+<input
+type="email"
+name="email"
+placeholder="Enter Email"
+required>
+
+<input
+type="password"
+name="password"
+placeholder="Enter Password"
+required>
+
+<button type="submit">
+Login
+</button>
+
+</form>
+
+<div class="links">
+
+<a href="forgotPassword.jsp">
+Forgot Password?
+</a>
+
+<br><br>
+
+Don't have an account?
+
+<br><br>
+
+<a href="register.jsp">
+Create New Account
+</a>
+
+</div>
+
+</div>
 
 </body>
+
 </html>
