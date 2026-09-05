@@ -7,12 +7,16 @@ String id = request.getParameter("bookingId");
 
 BookingDAO dao = new BookingDAO();
 
+out.println("Booking ID from URL = " + id + "<br>");
+
 Booking booking = dao.getBookingById(Integer.parseInt(id));
 
 if(booking == null){
-    out.println("<h2>Invalid Ticket</h2>");
+    out.println("<h2>Booking is NULL</h2>");
     return;
 }
+
+out.println("<h2>Booking Found</h2>");
 %>
 
 <!DOCTYPE html>

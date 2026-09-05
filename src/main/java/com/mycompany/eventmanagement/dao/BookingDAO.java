@@ -35,7 +35,6 @@ public class BookingDAO {
                     "ORDER BY b.booking_id DESC";
 
             PreparedStatement ps = con.prepareStatement(sql);
-
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -90,7 +89,6 @@ public class BookingDAO {
                     "ORDER BY b.booking_id DESC";
 
             PreparedStatement ps = con.prepareStatement(sql);
-
             ps.setInt(1, userId);
 
             ResultSet rs = ps.executeQuery();
@@ -134,7 +132,6 @@ public class BookingDAO {
             String sql = "SELECT COUNT(*) FROM bookings";
 
             PreparedStatement ps = con.prepareStatement(sql);
-
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -161,10 +158,9 @@ public class BookingDAO {
 
             Connection con = DBConnection.getConnection();
 
-            String sql = "SELECT SUM(total_amount) FROM bookings WHERE status='Confirmed'";
+            String sql = "SELECT SUM(total_amount) FROM bookings WHERE status='CONFIRMED'";
 
             PreparedStatement ps = con.prepareStatement(sql);
-
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -191,6 +187,14 @@ public class BookingDAO {
 
             Connection con = DBConnection.getConnection();
 
+            if (con == null) {
+                System.out.println("Database Connection is NULL");
+                return null;
+            }
+
+            System.out.println("Database Connected Successfully");
+            System.out.println("Searching Booking ID = " + bookingId);
+
             String sql =
                     "SELECT b.booking_id, " +
                     "u.name AS user_name, " +
@@ -206,12 +210,13 @@ public class BookingDAO {
                     "WHERE b.booking_id = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
-
             ps.setInt(1, bookingId);
 
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+
+                System.out.println("BOOKING FOUND!");
 
                 booking = new Booking();
 
@@ -223,6 +228,11 @@ public class BookingDAO {
                 booking.setTicketType(rs.getString("ticket_type"));
                 booking.setBookingDate(rs.getString("booking_date"));
                 booking.setStatus(rs.getString("status"));
+
+            } else {
+
+                System.out.println("BOOKING NOT FOUND!");
+
             }
 
             rs.close();
@@ -230,7 +240,10 @@ public class BookingDAO {
             con.close();
 
         } catch (Exception e) {
+
+            System.out.println("ERROR INSIDE getBookingById()");
             e.printStackTrace();
+
         }
 
         return booking;
