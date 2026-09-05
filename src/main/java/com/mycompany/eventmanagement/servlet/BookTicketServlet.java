@@ -56,6 +56,10 @@ public class BookTicketServlet extends HttpServlet {
 
                 double regularPrice = rs.getDouble("ticket_price");
                 double vipPrice = rs.getDouble("vip_price");
+                
+                System.out.println("Regular Price = " + regularPrice);
+                System.out.println("VIP Price = " + vipPrice);
+                System.out.println("Ticket Type = " + ticketType);
 
                 int seats = rs.getInt("available_seats");
 

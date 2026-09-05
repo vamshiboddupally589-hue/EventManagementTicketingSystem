@@ -92,10 +92,9 @@ public class DownloadTicketServlet extends HttpServlet {
             document.add(new Paragraph(" "));
 
             // QR Code Data
-String qrData =
-        "https://eventmanagementticketingsystem.onrender.com/EventManagementTicketingSystem/viewTicket.jsp?bookingId="
-        + booking.getBookingId();
-
+        String qrData =
+            "https://eventmanagementticketingsystem.onrender.com/viewTicket.jsp?bookingId="
+            + booking.getBookingId();
 // Generate QR Code
 BitMatrix bitMatrix = new MultiFormatWriter().encode(
         qrData,
