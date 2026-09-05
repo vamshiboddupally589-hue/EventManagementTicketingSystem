@@ -67,55 +67,45 @@ button:hover{
     background:#0056b3;
 }
 
-.links{
-
-    text-align:center;
-    margin-top:15px;
-}
-
-.links a{
-
-    color:#007bff;
-    text-decoration:none;
-}
-
-.links a:hover{
-
-    text-decoration:underline;
-}
-
 .forgot-link{
+
     margin-top:15px;
     text-align:left;
 }
 
 .forgot-link a{
+
     color:#007bff;
     text-decoration:none;
     font-size:15px;
 }
 
 .forgot-link a:hover{
+
     text-decoration:underline;
 }
 
 hr{
+
     margin:20px 0;
     border:none;
     border-top:1px solid #ddd;
 }
 
 .register-link{
+
     text-align:center;
 }
 
 .register-link p{
+
     margin-bottom:10px;
     color:#444;
     font-size:16px;
 }
 
 .register-link a{
+
     color:#007bff;
     text-decoration:none;
     font-size:18px;
@@ -123,8 +113,10 @@ hr{
 }
 
 .register-link a:hover{
+
     text-decoration:underline;
 }
+
 </style>
 
 </head>
@@ -175,20 +167,6 @@ Registration Successful! Please Login.
 
 <form action="LoginServlet" method="post">
 
-<input
-type="email"
-name="email"
-placeholder="Enter Email"
-required>
-
-<input
-type="password"
-name="password"
-placeholder="Enter Password"
-required>
-
-<form action="LoginServlet" method="post">
-
     <input
         type="email"
         name="email"
@@ -207,18 +185,24 @@ required>
 
 </form>
 
-<!-- Forgot Password -->
 <div class="forgot-link">
     <a href="forgotPassword.jsp">Forgot Password?</a>
 </div>
 
 <hr>
 
-<!-- Register -->
 <div class="register-link">
+
     <p>Don't have an account?</p>
 
     <a href="register.jsp">
         Create New Account
     </a>
+
 </div>
+
+</div>
+
+</body>
+
+</html>
