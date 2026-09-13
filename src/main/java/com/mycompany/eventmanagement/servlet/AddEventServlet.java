@@ -16,7 +16,7 @@ public class AddEventServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
+            HttpServletResponse response)
             throws ServletException, IOException {
 
         Event event = new Event();
@@ -26,7 +26,16 @@ public class AddEventServlet extends HttpServlet {
         event.setVenue(request.getParameter("venue"));
         event.setEventDate(request.getParameter("eventDate"));
         event.setEventTime(request.getParameter("eventTime"));
-        event.setTicketPrice(Double.parseDouble(request.getParameter("ticketPrice")));
+        
+
+System.out.println("Regular = " + request.getParameter("ticketPrice"));
+System.out.println("VIP = " + request.getParameter("vipPrice"));
+
+event.setTicketPrice(Double.parseDouble(request.getParameter("ticketPrice")));
+event.setVipPrice(Double.parseDouble(request.getParameter("vipPrice")));
+        
+        System.out.println("Regular Price = " + event.getTicketPrice());
+        System.out.println("VIP Price = " + event.getVipPrice());
 
         int seats = Integer.parseInt(request.getParameter("totalSeats"));
         event.setTotalSeats(seats);
@@ -37,14 +46,10 @@ public class AddEventServlet extends HttpServlet {
         boolean status = dao.addEvent(event);
 
         if (status) {
-
             response.sendRedirect("dashboard.jsp");
-
         } else {
-
-             System.out.println("Event insertion failed.");
-             response.getWriter().println("<h2>Failed to Add Event!</h2>");
-
+            System.out.println("Event insertion failed.");
+            response.getWriter().println("<h2>Failed to Add Event!</h2>");
         }
     }
 }

@@ -38,15 +38,6 @@ body{
     background:#f4f6f9;
 }
 
-.header{
-    background:#0d6efd;
-    color:white;
-    padding:20px;
-    text-align:center;
-    font-size:30px;
-    font-weight:bold;
-}
-
 .container{
     width:90%;
     margin:40px auto;
@@ -59,9 +50,30 @@ body{
     box-shadow:0 5px 15px rgba(0,0,0,.15);
 }
 
+.header{
+    background:linear-gradient(135deg,#0d6efd,#3b82f6);
+    color:white;
+    padding:30px;
+    text-align:center;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+
+.header h1{
+    margin:0;
+    font-size:34px;
+}
+
+.header p{
+    margin-top:8px;
+    font-size:16px;
+    opacity:.9;
+}
+
 .card h2{
     color:#0d6efd;
     margin-bottom:20px;
+    font-size:30px;
 }
 
 .booking-table{
@@ -71,15 +83,27 @@ body{
 
 .booking-table th{
     background:#0d6efd;
-    color:white;
-    padding:14px;
+    color:#fff;
+    padding:16px;
     text-align:center;
+    font-size:16px;
+    font-weight:600;
+    letter-spacing:.5px;
 }
 
 .booking-table td{
-    padding:14px;
+    padding:18px 12px;
     border-bottom:1px solid #ddd;
     text-align:center;
+    vertical-align:middle;
+}
+
+.booking-table td:nth-child(2){
+    white-space:nowrap;
+}
+
+.booking-table td:nth-child(7){
+    white-space:nowrap;
 }
 
 .booking-table tr:nth-child(even){
@@ -94,7 +118,7 @@ body{
     display:inline-block;
     background:#28a745;
     color:white;
-    padding:6px 16px;
+    padding:8px 18px;
     border-radius:20px;
     font-size:13px;
     font-weight:bold;
@@ -104,45 +128,52 @@ body{
     display:inline-block;
     background:#dc3545;
     color:white;
-    padding:6px 16px;
+    padding:8px 18px;
     border-radius:20px;
     font-size:13px;
     font-weight:bold;
 }
+/* ================= Buttons ================= */
 
 .download-btn{
     display:inline-block;
     background:#dc3545;
-    color:white;
-    padding:10px 18px;
-    border-radius:8px;
+    color:#fff;
+    padding:8px 14px;
+    border-radius:6px;
     text-decoration:none;
-    font-weight:bold;
-    min-width:150px;
-    text-align:center;
-    transition:.3s;
+    font-size:14px;
+    font-weight:600;
+    white-space:nowrap;
 }
 
 .download-btn:hover{
     background:#bb2d3b;
 }
+.action-buttons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+}
 
 .cancel-btn{
     display:inline-block;
     background:#ffc107;
-    color:#000;
-    padding:10px 18px;
-    border-radius:8px;
+    color:#212529;
+    padding:8px 12px;
+    border-radius:5px;
     text-decoration:none;
-    font-weight:bold;
-    min-width:110px;
+    font-size:13px;
+    font-weight:600;
     text-align:center;
-    transition:.3s;
+    transition:0.3s;
 }
 
 .cancel-btn:hover{
     background:#e0a800;
 }
+
 .no-booking{
     text-align:center;
     padding:30px;
@@ -154,17 +185,18 @@ body{
     display:inline-block;
     margin-top:25px;
     background:#0d6efd;
-    color:white;
+    color:#fff;
     text-decoration:none;
-    padding:12px 22px;
-    border-radius:8px;
-    font-weight:bold;
+    padding:10px 20px;
+    border-radius:6px;
+    font-size:15px;
+    font-weight:600;
+    transition:0.3s;
 }
 
 .back-btn:hover{
     background:#0b5ed7;
 }
-
 </style>
 
 </head>
@@ -172,14 +204,20 @@ body{
 <body>
 
 <div class="header">
-    My Bookings
+
+    <h1>My Bookings</h1>
+
+    <p>
+        View all your confirmed and cancelled event tickets
+    </p>
+
 </div>
 
 <div class="container">
 
 <div class="card">
 
-<h2>My Confirmed Bookings</h2>
+<h2>My Bookings</h2>
 
 <%
 if(bookings.size()==0){
@@ -196,15 +234,13 @@ if(bookings.size()==0){
 <table class="booking-table">
 
 <tr>
-    <th>Booking ID</th>
     <th>Event</th>
     <th>Ticket Type</th>
     <th>Tickets</th>
     <th>Amount</th>
     <th>Status</th>
-    <th>Date</th>
-    <th>Download</th>
-    <th>Cancel</th>
+    <th>Booking Date</th>
+    <th>Actions</th>
 </tr>
 
 <%
@@ -213,121 +249,103 @@ for(Booking booking : bookings){
 
 <tr>
 
-<td><%= booking.getBookingId() %></td>
+    <td style="max-width:180px;">
+        <%= booking.getEventName() %>
+    </td>
 
-<td><%= booking.getEventName() %></td>
+    <td>
+        <%
+        if("VIP".equalsIgnoreCase(booking.getTicketType())){
+        %>
 
-<td>
+        <span style="background:#ffc107;
+                     color:black;
+                     padding:6px 15px;
+                     border-radius:20px;
+                     font-weight:bold;">
+            VIP
+        </span>
 
-<%
-if("VIP".equalsIgnoreCase(booking.getTicketType())){
-%>
+        <%
+        }else{
+        %>
 
-<span style="background:#ffc107;
-color:black;
-padding:6px 15px;
-border-radius:20px;
-font-weight:bold;">
-VIP
-</span>
+        <span style="background:#17a2b8;
+                     color:white;
+                     padding:6px 15px;
+                     border-radius:20px;
+                     font-weight:bold;">
+            REGULAR
+        </span>
 
-<%
-}else{
-%>
+        <%
+        }
+        %>
+    </td>
 
-<span style="background:#17a2b8;
-color:white;
-padding:6px 15px;
-border-radius:20px;
-font-weight:bold;">
-REGULAR
-</span>
+    <td><%= booking.getSeatsBooked() %></td>
 
-<%
-}
-%>
+    <td>₹ <%= booking.getTotalAmount() %></td>
 
-</td>
+    <td>
 
-<td><%= booking.getSeatsBooked() %></td>
+        <%
+        if("CONFIRMED".equalsIgnoreCase(booking.getStatus())){
+        %>
 
-<td>₹ <%= booking.getTotalAmount() %></td>
+        <span class="status-confirmed">
+            CONFIRMED
+        </span>
 
-<td>
+        <%
+        }else{
+        %>
 
-<%
-if("CONFIRMED".equals(booking.getStatus())){
-%>
+        <span class="status-cancelled">
+            CANCELLED
+        </span>
 
-<span class="status-confirmed">
-    CONFIRMED
-</span>
+        <%
+        }
+        %>
 
-<%
-}else{
-%>
+    </td>
 
-<span class="status-cancelled">
-    CANCELLED
-</span>
+    <td>
+        <%= booking.getBookingDate().toString().substring(0,10) %>
+    </td>
 
-<%
-}
-%>
+    <td class="action-buttons">
 
-</td>
-<td><%= booking.getBookingDate() %></td>
+        <%
+        if("CONFIRMED".equalsIgnoreCase(booking.getStatus())){
+        %>
 
-<td>
+        <a href="DownloadTicketServlet?bookingId=<%= booking.getBookingId() %>"
+           class="download-btn">
+            Download
+        </a>
 
-<%
-if("CONFIRMED".equals(booking.getStatus())){
-%>
+        <a href="CancelBookingServlet?bookingId=<%= booking.getBookingId() %>"
+           class="cancel-btn"
+           onclick="return confirm('Are you sure you want to cancel this booking?');">
+            Cancel
+        </a>
 
-<a href="DownloadTicketServlet?bookingId=<%= booking.getBookingId() %>"
-   class="download-btn">
-    Download Ticket
-</a>
+        <%
+        }else{
+        %>
 
-<%
-}else{
-%>
+        <span style="color:red;font-weight:bold;">
+            Cancelled
+        </span>
 
-<span style="color:gray;font-weight:bold;">
-    Not Available
-</span>
+        <%
+        }
+        %>
 
-<%
-}
-%>
+    </td>
 
-</td>
-
-<td>
-
-<%
-if("CONFIRMED".equals(booking.getStatus())){
-%>
-
-<a href="CancelBookingServlet?bookingId=<%= booking.getBookingId() %>"
-   class="cancel-btn"
-   onclick="return confirm('Are you sure you want to cancel this booking?');">
-    Cancel
-</a>
-
-<%
-}else{
-%>
-
-<span style="color:red;font-weight:bold;">
-    Cancelled
-</span>
-
-<%
-}
-%>
-
-</td>
 </tr>
 
 <%
@@ -335,13 +353,12 @@ if("CONFIRMED".equals(booking.getStatus())){
 %>
 
 </table>
-
 <%
 }
 %>
 
 <a href="dashboard.jsp" class="back-btn">
-    ← Back to Dashboard
+    Back
 </a>
 
 </div>

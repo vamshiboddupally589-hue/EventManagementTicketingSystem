@@ -18,52 +18,87 @@ Event event = dao.getEventById(Integer.parseInt(id));
 <style>
 
 body{
-    font-family:Arial;
-    background:#f4f4f4;
+    font-family:Arial, sans-serif;
+    background:#f4f6f9;
 }
 
 .container{
-    width:500px;
+    width:600px;
     margin:50px auto;
 }
 
 .card{
-    background:white;
-    padding:30px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,.2);
+    background:#fff;
+    padding:35px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
 }
 
 h2{
-    color:#007bff;
-    margin-bottom:20px;
+    color:#0d6efd;
+    margin-bottom:25px;
 }
 
 p{
-    margin:10px 0;
     font-size:18px;
+    margin:12px 0;
 }
 
+.price-box{
+    background:#eef5ff;
+    padding:15px;
+    border-radius:8px;
+    margin:20px 0;
+}
+
+.price-box h3{
+    margin:0;
+    color:#0d6efd;
+}
+
+.price{
+    font-size:30px;
+    font-weight:bold;
+    color:#28a745;
+    margin-top:10px;
+}
+
+label{
+    font-size:18px;
+    font-weight:bold;
+}
+
+select,
 input[type=number]{
+
     width:100%;
-    padding:10px;
-    margin-top:15px;
+    padding:12px;
+    margin-top:10px;
     margin-bottom:20px;
     font-size:16px;
+    border:1px solid #ccc;
+    border-radius:6px;
+
 }
 
 button{
+
+    width:100%;
     background:#28a745;
     color:white;
     border:none;
-    padding:12px 20px;
-    border-radius:5px;
-    font-size:16px;
+    padding:14px;
+    font-size:18px;
+    border-radius:8px;
     cursor:pointer;
+    transition:.3s;
+
 }
 
 button:hover{
-    background:#1e7e34;
+
+    background:#218838;
+
 }
 
 </style>
@@ -76,7 +111,7 @@ button:hover{
 
 <div class="card">
 
-<h2>Book Ticket</h2>
+<h2>🎟 Book Ticket</h2>
 
 <p><b>Event:</b> <%= event.getEventName() %></p>
 
@@ -84,9 +119,7 @@ button:hover{
 
 <p><b>Date:</b> <%= event.getEventDate() %></p>
 
-<p><b>Regular Ticket Price:</b> ₹ <%= event.getTicketPrice() %></p>
-
-<p><b>VIP Ticket Price:</b> ₹ <%= event.getVipPrice() %></p>
+<p><b>Available Seats:</b> <%= event.getAvailableSeats() %></p>
 
 <%
 if(event.getAvailableSeats() > 0){
@@ -94,18 +127,36 @@ if(event.getAvailableSeats() > 0){
 
 <form action="BookTicketServlet" method="post">
 
-<input type="hidden"
+<input
+type="hidden"
 name="eventId"
 value="<%= event.getEventId() %>">
 
 <label>Ticket Type</label>
+<select
+name="ticketType"
+id="ticketType"
+onchange="updatePrice()"
+required>
 
-<select name="ticketType" required>
     <option value="Regular">Regular</option>
     <option value="VIP">VIP</option>
+
 </select>
 
 <br><br>
+
+<div class="price-box">
+
+    <h3>Ticket Price</h3>
+
+    <div class="price">
+        ₹ <span id="ticketPrice"></span>
+    </div>
+
+</div>
+
+<br>
 
 <label>Number of Tickets</label>
 
@@ -114,6 +165,7 @@ type="number"
 name="quantity"
 min="1"
 max="<%= event.getAvailableSeats() %>"
+value="1"
 required>
 
 <button type="submit">
@@ -126,21 +178,11 @@ Book Ticket
 }else{
 %>
 
-<div style="
-background:#ffe5e5;
-border:2px solid red;
-padding:20px;
-border-radius:10px;
-text-align:center;
-margin-top:20px;">
+<div style="background:#ffe5e5;padding:20px;border-radius:8px;text-align:center;">
 
 <h2 style="color:red;">
 ❌ SOLD OUT
 </h2>
-
-<p style="font-size:18px;">
-No seats are available for this event.
-</p>
 
 </div>
 
@@ -151,6 +193,39 @@ No seats are available for this event.
 </div>
 
 </div>
+
+<script>
+
+const regularPrice = <%= event.getTicketPrice() %>;
+const vipPrice = <%= event.getVipPrice() %>;
+
+
+console.log("Regular Price =", regularPrice);
+console.log("VIP Price =", vipPrice);
+function updatePrice(){
+
+    const type = document.getElementById("ticketType").value;
+
+    console.log("Selected Type = " + type);
+
+    if(type === "VIP"){
+
+        console.log("Setting VIP Price = " + vipPrice);
+
+        document.getElementById("ticketPrice").innerHTML = vipPrice;
+
+    }else{
+
+        console.log("Setting Regular Price = " + regularPrice);
+
+        document.getElementById("ticketPrice").innerHTML = regularPrice;
+
+    }
+
+    console.log("Displayed Price = " +
+        document.getElementById("ticketPrice").innerHTML);
+}
+</script>
 
 </body>
 </html>

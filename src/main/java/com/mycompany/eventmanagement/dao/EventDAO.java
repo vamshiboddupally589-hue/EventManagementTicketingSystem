@@ -12,43 +12,81 @@ import java.util.List;
 
 public class EventDAO {
 
-    // Add Event
-    public boolean addEvent(Event event) {
+// Add Event
+public boolean addEvent(Event event) {
 
-        boolean status = false;
+    boolean status = false;
 
-        try {
+    try {
 
-            Connection con = DBConnection.getConnection();
+        Connection con = DBConnection.getConnection();
 
-            String sql = "INSERT INTO events(event_name, description, venue, event_date, event_time, ticket_price, total_seats, available_seats) VALUES(?,?,?,?,?,?,?,?)";
+        // Insert Event
+        String sql = "INSERT INTO events(event_name, description, venue, event_date, event_time, ticket_price, vip_price, total_seats, available_seats) VALUES(?,?,?,?,?,?,?,?,?)";
 
-            PreparedStatement ps = con.prepareStatement(sql);
+        PreparedStatement ps = con.prepareStatement(
+                sql,
+                PreparedStatement.RETURN_GENERATED_KEYS
+        );
 
-            ps.setString(1, event.getEventName());
-            ps.setString(2, event.getDescription());
-            ps.setString(3, event.getVenue());
-            ps.setString(4, event.getEventDate());
-            ps.setString(5, event.getEventTime());
-            ps.setDouble(6, event.getTicketPrice());
-            ps.setInt(7, event.getTotalSeats());
-            ps.setInt(8, event.getAvailableSeats());
+        ps.setString(1, event.getEventName());
+        ps.setString(2, event.getDescription());
+        ps.setString(3, event.getVenue());
+        ps.setString(4, event.getEventDate());
+        ps.setString(5, event.getEventTime());
+        ps.setDouble(6, event.getTicketPrice());   // Regular Price
+        ps.setDouble(7, event.getVipPrice());      // VIP Price
+        ps.setInt(8, event.getTotalSeats());
+        ps.setInt(9, event.getAvailableSeats());
 
-            int rows = ps.executeUpdate();
+        int rows = ps.executeUpdate();
 
-            if (rows > 0) {
-                status = true;
+        if (rows > 0) {
+
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if (rs.next()) {
+
+                int eventId = rs.getInt(1);
+
+                // Insert Regular Ticket
+                String ticketSql = "INSERT INTO tickets(event_id, ticket_type, price, total_quantity, available_quantity) VALUES(?,?,?,?,?)";
+
+                PreparedStatement ticketPs = con.prepareStatement(ticketSql);
+
+                ticketPs.setInt(1, eventId);
+                ticketPs.setString(2, "Regular");
+                ticketPs.setDouble(3, event.getTicketPrice());
+                ticketPs.setInt(4, event.getTotalSeats());
+                ticketPs.setInt(5, event.getTotalSeats());
+
+                ticketPs.executeUpdate();
+
+                // Insert VIP Ticket
+                ticketPs.setInt(1, eventId);
+                ticketPs.setString(2, "VIP");
+                ticketPs.setDouble(3, event.getVipPrice());
+                ticketPs.setInt(4, event.getTotalSeats());
+                ticketPs.setInt(5, event.getTotalSeats());
+
+                ticketPs.executeUpdate();
+
+                ticketPs.close();
             }
 
-            ps.close();
-            con.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            rs.close();
+            status = true;
         }
 
-        return status;
+        ps.close();
+        con.close();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return status;
+}
 
     // Get All Events
     public List<Event> getAllEvents() {
@@ -76,6 +114,7 @@ public class EventDAO {
                 event.setEventDate(rs.getString("event_date"));
                 event.setEventTime(rs.getString("event_time"));
                 event.setTicketPrice(rs.getDouble("ticket_price"));
+                event.setVipPrice(rs.getDouble("vip_price")); 
                 event.setTotalSeats(rs.getInt("total_seats"));
                 event.setAvailableSeats(rs.getInt("available_seats"));
 
@@ -93,49 +132,54 @@ public class EventDAO {
         return list;
     }
 
-    // Get Event By ID
-    public Event getEventById(int eventId) {
+// Get Event By ID
+public Event getEventById(int id) {
 
-        Event event = null;
+    Event event = null;
 
-        try {
+    try {
 
-            Connection con = DBConnection.getConnection();
+        Connection con = DBConnection.getConnection();
 
-            String sql = "SELECT * FROM events WHERE event_id = ?";
+        String sql = "SELECT * FROM events WHERE event_id=?";
 
-            PreparedStatement ps = con.prepareStatement(sql);
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
 
-            ps.setInt(1, eventId);
+        ResultSet rs = ps.executeQuery();
 
-            ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+  System.out.println("========== EVENT ==========");
+    System.out.println("ID = " + rs.getInt("event_id"));
+    System.out.println("Regular = " + rs.getDouble("ticket_price"));
+    System.out.println("VIP = " + rs.getDouble("vip_price"));
+    System.out.println("===========================");
 
-            if (rs.next()) {
+    event = new Event();
 
-                event = new Event();
+    event.setEventId(rs.getInt("event_id"));
+    event.setEventName(rs.getString("event_name"));
+    event.setDescription(rs.getString("description"));
+    event.setVenue(rs.getString("venue"));
+    event.setEventDate(rs.getString("event_date"));
+    event.setEventTime(rs.getString("event_time"));
 
-                event.setEventId(rs.getInt("event_id"));
-                event.setEventName(rs.getString("event_name"));
-                event.setDescription(rs.getString("description"));
-                event.setVenue(rs.getString("venue"));
-                event.setEventDate(rs.getString("event_date"));
-                event.setEventTime(rs.getString("event_time"));
-                event.setTicketPrice(rs.getDouble("ticket_price"));
-                event.setTotalSeats(rs.getInt("total_seats"));
-                event.setAvailableSeats(rs.getInt("available_seats"));
-            }
+    event.setTicketPrice(rs.getDouble("ticket_price"));
+    event.setVipPrice(rs.getDouble("vip_price"));
 
-            rs.close();
-            ps.close();
-            con.close();
+    event.setTotalSeats(rs.getInt("total_seats"));
+    event.setAvailableSeats(rs.getInt("available_seats"));
+}
+        rs.close();
+        ps.close();
+        con.close();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return event;
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 
+    return event;
+}
     // Update Event
     public boolean updateEvent(Event event) {
 
@@ -235,8 +279,10 @@ public class EventDAO {
                 event.setEventDate(rs.getString("event_date"));
                 event.setEventTime(rs.getString("event_time"));
                 event.setTicketPrice(rs.getDouble("ticket_price"));
+                event.setVipPrice(rs.getDouble("vip_price"));
                 event.setTotalSeats(rs.getInt("total_seats"));
                 event.setAvailableSeats(rs.getInt("available_seats"));
+                
 
                 list.add(event);
             }
@@ -308,6 +354,7 @@ public class EventDAO {
                 event.setEventDate(rs.getString("event_date"));
                 event.setEventTime(rs.getString("event_time"));
                 event.setTicketPrice(rs.getDouble("ticket_price"));
+                event.setVipPrice(rs.getDouble("vip_price"));
                 event.setTotalSeats(rs.getInt("total_seats"));
                 event.setAvailableSeats(rs.getInt("available_seats"));
 

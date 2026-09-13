@@ -111,25 +111,6 @@ p{
     background:#0b5ed7;
     color:white;
 }
-/* Book Now Button */
-
-.book-btn{
-    background:#28a745;
-    color:#fff;
-    padding:12px 26px;
-    border-radius:10px;
-    font-size:17px;
-    font-weight:700;
-    text-decoration:none;
-    transition:.3s;
-    display:inline-block;
-}
-
-.book-btn:hover{
-    background:#218838;
-    transform:translateY(-2px);
-    box-shadow:0 8px 18px rgba(40,167,69,.35);
-}
 
 /* Logout Button */
 
@@ -222,33 +203,23 @@ table{
     width:100%;
     border-collapse:collapse;
     margin-top:20px;
+    table-layout:fixed;
 }
 
 table th{
-    background:#0d6efd;
+    background:#007bff;
     color:white;
-    padding:15px;
+    padding:12px;
     text-align:center;
-    font-size:18px;
 }
 
 table td{
     border:1px solid #ddd;
-    padding:15px;
+    padding:12px;
     text-align:center;
     vertical-align:middle;
-    height:90px;
-}
-.event-name{
-    min-width:180px;
-    font-weight:600;
-}
-
-.desc{
-    max-width:250px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
 }
 
 table tr:nth-child(even){
@@ -295,196 +266,100 @@ table tr:hover{
     background:#b52b3a;
 }
 
-/* ===========================================================
-   USER DASHBOARD (Top Cards)
-=========================================================== */
+/* Dashboard Cards */
 
-.stats-container{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
+.dashboard-cards{
+    display:flex;
     gap:20px;
-    margin:35px 0;
+    margin-top:30px;
+    flex-wrap:wrap;
 }
 
-.stats-container .stat-card{
-    background:#ffffff;
-    border-radius:16px;
+.stat-card{
+    flex:1;
+    min-width:220px;
+    background:#007bff;
+    color:white;
     padding:25px;
+    border-radius:10px;
     text-align:center;
-    box-shadow:0 8px 20px rgba(0,0,0,.12);
-    transition:.3s;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
 }
 
-.stats-container .stat-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 15px 30px rgba(0,0,0,.18);
-}
-
-.stats-container .stat-icon{
-    font-size:40px;
+.stat-card h3{
+    font-size:20px;
     margin-bottom:10px;
 }
 
-.stats-container .stat-card h2{
-    font-size:42px;
-    color:#0d6efd;
-    margin:10px 0;
+.stat-card h1{
+    font-size:40px;
 }
 
-.stats-container .stat-card p{
-    font-size:17px;
-    color:#555;
-    font-weight:600;
-}
+/* Book Button */
 
-.stat-link{
-    display:block;
-    text-decoration:none;
-    color:inherit;
-}
-
-.stat-link:hover{
-    text-decoration:none;
-    color:inherit;
-}
-
-
-/* ===========================================================
-   ADMIN DASHBOARD
-=========================================================== */
-
-.admin-dashboard{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:25px;
-    margin:40px 0;
-}
-
-.admin-card{
-    background:linear-gradient(135deg,#0f172a,#1e3a8a);
-    color:#fff;
-    border-radius:18px;
-    padding:30px;
+.action-cell{
     text-align:center;
-    box-shadow:0 12px 25px rgba(0,0,0,.25);
-    transition:.3s;
+    vertical-align:middle;
+    width:140px;
 }
 
-.admin-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 18px 35px rgba(0,0,0,.35);
+.book-btn{
+    display:inline-block;
+    width:100px;
+    padding:10px 0;
+    background:#28a745;
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+    font-weight:bold;
+    text-align:center;
+    white-space:nowrap;
 }
 
-.admin-card h3{
-    color:#dbeafe;
-    margin-bottom:18px;
-    font-size:20px;
+.book-btn:hover{
+    background:#1e7e34;
 }
 
-.admin-card h1{
-    color:#38bdf8;
-    font-size:42px;
+/* ================= Dashboard Statistics ================= */
+
+.stats-container{
+    display:flex;
+    gap:20px;
+    margin:30px 0;
+    flex-wrap:wrap;
+}
+
+.stat-card{
+    flex:1;
+    min-width:180px;
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.12);
+    transition:0.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-6px);
+}
+
+.stat-icon{
+    font-size:36px;
+    margin-bottom:10px;
+}
+
+.stat-card h2{
+    margin:10px 0;
+    color:#0d6efd;
+}
+
+.stat-card p{
+    color:#666;
+    font-size:16px;
     margin:0;
 }
 
-
-/* ===========================================================
-   EVENT TABLE
-=========================================================== */
-
-.event-name{
-    color:#0d6efd;
-    font-size:20px;
-    font-weight:bold;
-    text-decoration:none;
-}
-
-.event-name:hover{
-    text-decoration:underline;
-}
-
-
-/* ===========================================================
-   RESPONSIVE
-=========================================================== */
-
-@media(max-width:992px){
-
-    .stats-container{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .admin-dashboard{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:576px){
-
-    .stats-container{
-        grid-template-columns:1fr;
-    }
-
-    .admin-dashboard{
-        grid-template-columns:1fr;
-    }
-
-}
-/* Event Table Improvements */
-
-.event-table{
-    width:100%;
-    border-collapse:collapse;
-    table-layout:auto;
-}
-
-.event-table th,
-.event-table td{
-    padding:15px;
-    text-align:center;
-    vertical-align:middle;
-}
-
-.event-table th:nth-child(1),
-.event-table td:nth-child(1){
-    width:220px;   /* Event Name */
-}
-
-.event-table th:nth-child(2),
-.event-table td:nth-child(2){
-    width:300px;   /* Description */
-}
-
-.event-table th:nth-child(3),
-.event-table td:nth-child(3){
-    width:180px;   /* Venue */
-}
-
-.event-table th:nth-child(8),
-.event-table td:nth-child(8){
-    width:180px;   /* Action */
-}
-.event-name{
-    color:#0d6efd;
-    font-weight:700;
-    font-size:20px;
-    cursor:pointer;
-}
-
-.event-name:hover{
-    text-decoration:underline;
-}
-.venue{
-    line-height:1.5;
-}
-.low-seat{
-    color:#dc3545;
-    font-weight:bold;
-    font-size:15px;
-    margin-top:10px;
-    display:block;
-}
 </style>
 </head>
 
@@ -507,14 +382,13 @@ table tr:hover{
     
 
 <a href="LogoutServlet" class="logout-btn">Logout</a>
+
 <%
 if(user.getRole().equalsIgnoreCase("ADMIN") ||
    user.getRole().equalsIgnoreCase("ORGANIZER")){
 %>
 
-<a href="addEvent.jsp" class="add-btn">
-    Add New Event
-</a>
+<a href="addEvent.jsp" class="add-btn">Add New Event</a>
 
 <%
 }
@@ -522,7 +396,7 @@ if(user.getRole().equalsIgnoreCase("ADMIN") ||
 
 </div>
 
-<!-- ================= USER DASHBOARD ================= -->
+<!-- Dashboard Statistics -->
 
 <div class="stats-container">
 
@@ -532,13 +406,23 @@ if(user.getRole().equalsIgnoreCase("ADMIN") ||
         <p>Total Events</p>
     </div>
 
-    <a href="myBookings.jsp" class="stat-link">
-        <div class="stat-card">
-            <div class="stat-icon">🎫</div>
-            <h2><%= bookings.size() %></h2>
-            <p>My Bookings</p>
-        </div>
-    </a>
+    <div class="stat-card">
+        <div class="stat-icon">🎫</div>
+        <h2><%= bookings.size() %></h2>
+        <p>My Bookings</p>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <h2>0</h2>
+        <p>Total Users</p>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <h2>₹0</h2>
+        <p>Revenue</p>
+    </div>
 
 </div>
 
@@ -582,16 +466,15 @@ Clear
 <table>
 
 <tr>
-
-<th>Event Name</th>
-<th>Description</th>
-<th>Venue</th>
-<th>Date</th>
-<th>Time</th>
-<th>Price</th>
-<th>Seats</th>
-<th>Action</th>
-
+    <th>ID</th>
+    <th>Event Name</th>
+    <th>Description</th>
+    <th>Venue</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Price</th>
+    <th>Seats</th>
+    <th>Action</th>
 </tr>
 
 <%
@@ -600,44 +483,21 @@ for(Event e : events){
 
 <tr>
 
-<td class="event-name">
-    <%= e.getEventName() %>
-</td>
+<td><%= e.getEventId() %></td>
 
-<td>
+<td><%= e.getEventName() %></td>
 
-<%
-String desc = e.getDescription();
+<td><%= e.getDescription() %></td>
 
-if(desc.length() > 45){
-    out.print(desc.substring(0,45) + "...");
-}
-else{
-    out.print(desc);
-}
-%>
+<td><%= e.getVenue() %></td>
 
-</td>
+<td><%= e.getEventDate() %></td>
 
-<td>
-    <%= e.getVenue() %>
-</td>
+<td><%= e.getEventTime() %></td>
 
-<td>
-    <%= e.getEventDate() %>
-</td>
+<td>Rs. <%= e.getTicketPrice() %></td>
 
-<td>
-    <%= e.getEventTime() %>
-</td>
-
-<td>
-    Rs. <%= e.getTicketPrice() %>
-</td>
-
-<td>
-    <%= e.getAvailableSeats() %> / <%= e.getTotalSeats() %>
-</td>
+<td><%= e.getAvailableSeats() %> / <%= e.getTotalSeats() %></td>
 
 <td>
 
@@ -664,7 +524,7 @@ Delete
 }
 else{
 
-if(e.getAvailableSeats()==0){
+    if(e.getAvailableSeats() == 0){
 %>
 
 <span style="
@@ -673,18 +533,20 @@ background:#dc3545;
 color:white;
 padding:10px 18px;
 border-radius:5px;
-font-weight:bold;">
+font-weight:bold;
+">
 SOLD OUT
 </span>
 
 <%
-}
-else if(e.getAvailableSeats()<10){
+    }
+    else if(e.getAvailableSeats() < 10){
 %>
 
 <div>
 
-<a href="bookTicket.jsp?eventId=<%= e.getEventId() %>" class="book-btn">
+<a href="bookTicket.jsp?eventId=<%= e.getEventId() %>"
+class="book-btn">
 Book Now
 </a>
 
@@ -693,23 +555,25 @@ Book Now
 <span style="
 color:#dc3545;
 font-weight:bold;
-font-size:14px;">
+font-size:14px;
+">
 ⚠ Only <%= e.getAvailableSeats() %> seats left!
 </span>
 
 </div>
 
 <%
-}
-else{
+    }
+    else{
 %>
 
-<a href="bookTicket.jsp?eventId=<%= e.getEventId() %>" class="book-btn">
+<a href="bookTicket.jsp?eventId=<%= e.getEventId() %>"
+class="book-btn">
 Book Now
 </a>
 
 <%
-}
+    }
 }
 %>
 
@@ -722,58 +586,85 @@ Book Now
 %>
 
 </table>
+<!-- Dashboard Statistics -->
 
-<%
-if(user.getRole().equalsIgnoreCase("ADMIN") ||
-   user.getRole().equalsIgnoreCase("ORGANIZER")){
-%>
+<div class="dashboard-cards">
 
-<!-- ================= ADMIN DASHBOARD ================= -->
-
-<div class="admin-dashboard">
-
-    <div class="admin-card">
+    <div class="stat-card">
         <h3>Total Events</h3>
         <h1><%= events.size() %></h1>
     </div>
 
-    <div class="admin-card">
+    <div class="stat-card">
         <h3>Total Available Seats</h3>
         <h1>
-        <%
-            int seats=0;
-            for(Event e:events){
-                seats+=e.getAvailableSeats();
-            }
-            out.print(seats);
-        %>
+            <%
+                int seats = 0;
+                for(Event e : events){
+                    seats += e.getAvailableSeats();
+                }
+                out.print(seats);
+            %>
         </h1>
     </div>
 
-    <div class="admin-card">
+    <div class="stat-card">
         <h3>Total Revenue</h3>
         <h1>
-        Rs.
-        <%
-            double revenue=0;
-            for(Event e:events){
-                revenue+=e.getTicketPrice();
-            }
-            out.print(revenue);
-        %>
+            Rs.
+            <%
+                double revenue = 0;
+                for(Event e : events){
+                    revenue += e.getTicketPrice();
+                }
+                out.print(revenue);
+            %>
         </h1>
     </div>
 
-    <div class="admin-card">
+    <div class="stat-card">
         <h3>Total Bookings</h3>
         <h1><%= totalBookings %></h1>
     </div>
 
 </div>
 
-<%
-}
-%>
+<!-- ================= CONFIRMED BOOKINGS ================= -->
+
+<h2 style="margin-top:40px;color:#007bff;">
+    Confirmed Bookings
+</h2>
+
+<table>
+
+    <tr>
+        <th>Booking ID</th>
+        <th>User</th>
+        <th>Event</th>
+        <th>Seats</th>
+        <th>Total Amount</th>
+        <th>Booking Date</th>
+    </tr>
+
+    <% for(Booking booking : bookings){ %>
+
+    <tr>
+        <td><%= booking.getBookingId() %></td>
+        <td><%= booking.getUserName() %></td>
+        <td><%= booking.getEventName() %></td>
+        <td><%= booking.getSeatsBooked() %></td>
+        <td>Rs. <%= booking.getTotalAmount() %></td>
+        <td><%= booking.getBookingDate() %></td>
+    </tr>
+
+    <% } %>
+
+</table>
+
+</div>
+
+</div>
 
 </body>
+
 </html>

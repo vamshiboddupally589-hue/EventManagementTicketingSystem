@@ -80,11 +80,13 @@ public class BookTicketServlet extends HttpServlet {
 
                 // Find Ticket ID
                 String ticketSql =
-                        "SELECT ticket_id FROM tickets WHERE event_id=?";
+                        "SELECT ticket_id FROM tickets WHERE event_id=? AND ticket_type=?";
 
-                PreparedStatement ticketPs =
+                    PreparedStatement ticketPs =
                         con.prepareStatement(ticketSql);
 
+                    ticketPs.setInt(1, eventId);
+                    ticketPs.setString(2, ticketType);
                 ticketPs.setInt(1, eventId);
 
                 ResultSet ticketRs = ticketPs.executeQuery();

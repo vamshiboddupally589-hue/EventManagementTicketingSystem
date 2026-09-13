@@ -65,49 +65,58 @@
 
 <form action="AddEventServlet" method="post">
 
-<input
-type="text"
-name="eventName"
-placeholder="Event Name"
-required>
+    <input
+    type="text"
+    name="eventName"
+    placeholder="Event Name"
+    required>
 
-<textarea
-name="description"
-placeholder="Description"
-required>
-</textarea>
+    <textarea
+    name="description"
+    placeholder="Description"
+    required></textarea>
 
-<input
-type="text"
-name="venue"
-placeholder="Venue"
-required>
+    <input
+    type="text"
+    name="venue"
+    placeholder="Venue"
+    required>
 
-<input
-type="date"
-name="eventDate"
-required>
+    <input
+    type="date"
+    name="eventDate"
+    required>
 
-<input
-type="time"
-name="eventTime"
-required>
+    <input
+    type="time"
+    name="eventTime"
+    required>
 
-<input
-type="number"
-name="ticketPrice"
-placeholder="Ticket Price"
-required>
+    <!-- Regular Ticket Price -->
+    <input
+    type="number"
+    step="0.01"
+    name="ticketPrice"
+    placeholder="Regular Ticket Price"
+    required>
 
-<input
-type="number"
-name="totalSeats"
-placeholder="Total Seats"
-required>
+    <!-- VIP Ticket Price -->
+    <input
+    type="number"
+    step="0.01"
+    name="vipPrice"
+    placeholder="VIP Ticket Price"
+    required>
 
-<button type="submit">
-Add Event
-</button>
+    <input
+    type="number"
+    name="totalSeats"
+    placeholder="Total Seats"
+    required>
+
+    <button type="submit">
+        Add Event
+    </button>
 
 </form>
 
